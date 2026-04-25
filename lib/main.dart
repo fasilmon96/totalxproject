@@ -2,7 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:totalxproject/features/home/screen/home_screen.dart';
 
+import 'features/auth/screen/login_screen.dart';
 import 'firebase_options.dart';
 
 void main()async{
@@ -24,11 +26,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title:"TOTAL-X PROJECTS",
-      home:Scaffold(
-        body: Center(
-          child: Text("Project Skeleton"),
-        )
-      ),
+      home:LoginScreen()
     );
-  }
-}
+}}
