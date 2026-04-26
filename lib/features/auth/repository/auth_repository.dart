@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:totalxproject/core/common/error_text.dart';
 import 'package:totalxproject/core/constants/firebase_constants.dart';
 import 'package:totalxproject/core/constants/image_constants.dart';
 import '../../../core/providers/providers.dart';
+import '../../../core/providers/utils..dart';
 import '../../../model/admin_model.dart';
 
 final authRepositoryProvider = Provider(
@@ -26,9 +28,9 @@ class AuthRepository{
     required FirebaseAuth auth, required FirebaseFirestore firestore, required GoogleSignIn googleSignIn}) :
         _auth = auth, _firestore = firestore, _googleSignIn = googleSignIn;
 
-  CollectionReference get _users => _firestore.collection(FirebaseConstants.adminCollection);
+  CollectionReference get _admin => _firestore.collection(FirebaseConstants.adminCollection);
   Stream<User?> get authStateChange => _auth.authStateChanges();
-  Future<UserModel> signInWithGoogle() async {
+  Future<AdminModel> signInWithGoogle(BuildContext context) async {
     try {
       UserCredential userCredential;
         final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
@@ -44,14 +46,17 @@ class AuthRepository{
           idToken: googleAuth.idToken,
         );
       userCredential = await _auth.signInWithCredential(credential);
-      UserModel userModel;
+      AdminModel userModel;
       if (userCredential.additionalUserInfo!.isNewUser) {
-        userModel = UserModel(
+        userModel = AdminModel(
             uid: userCredential.user!.uid,
             name: userCredential.user!.displayName ?? "No Name",
             profilePic: userCredential.user!.photoURL ?? AppImages.avatarImage,
         );
-        await _users.doc(userCredential.user!.uid).set(userModel.toJson());
+        await _admin.doc(userCredential.user!.uid).set(userModel.toJson());
+        if (context.mounted) {
+          showSnackBar(context, "Login Successfully...");
+        }
       } else {
         userModel = await getUserData(userCredential.user!.uid).first;
       }
@@ -62,9 +67,9 @@ class AuthRepository{
   }
 
 
-  Stream<UserModel> getUserData(String uid) {
-    return _users.doc(uid).snapshots().map(
-          (event) => UserModel.fromJson(event.data() as Map<String, dynamic>),
+  Stream<AdminModel> getUserData(String uid) {
+    return _admin.doc(uid).snapshots().map(
+          (event) => AdminModel.fromJson(event.data() as Map<String, dynamic>),
     );
   }
 

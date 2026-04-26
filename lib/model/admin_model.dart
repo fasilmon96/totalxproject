@@ -1,14 +1,14 @@
-class UserModel{
+class AdminModel{
   final String uid;
   final String name;
   final  String profilePic;
-  UserModel({
+  AdminModel({
     required  this.uid,
     required   this.name,
     required  this.profilePic,
   });
 
-  factory UserModel.fromJson(Map<String,dynamic>json)=>UserModel(
+  factory AdminModel.fromJson(Map<String,dynamic>json)=>AdminModel(
       uid: json["uid"],
       name: json["name"],
       profilePic: json["profilePic"],
@@ -18,13 +18,13 @@ class UserModel{
     "name" : name,
     "profilePic" : profilePic,
   };
-  UserModel copyWith({
+  AdminModel copyWith({
     String?uid,
     String?name,
     String?profilePic,
   })
   {
-    return UserModel(
+    return AdminModel(
         uid: uid??this.uid,
         name: name??this.name,
         profilePic: profilePic??this.profilePic

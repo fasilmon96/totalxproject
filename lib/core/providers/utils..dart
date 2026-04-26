@@ -3,11 +3,17 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:totalxproject/core/common/error_text.dart';
+import 'package:totalxproject/core/constants/text_constants.dart';
 
 void showSnackBar(BuildContext context, String text) {
   ScaffoldMessenger.of(context)
     ..hideCurrentSnackBar()
-    ..showSnackBar(SnackBar(content: Text(text,)));
+    ..showSnackBar(SnackBar(content: Text(
+      text,style: AppTextStyles.title.copyWith(
+      color: Colors.white,
+      fontSize: 20
+    )
+    )));
 }
 
 
