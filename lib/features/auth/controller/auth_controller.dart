@@ -1,10 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../core/providers/utils..dart';
 import '../../../model/admin_model.dart';
 import '../repository/auth_repository.dart';
-final userProvider = StateProvider<UserModel?>((ref) => null,);
+final userProvider = StateProvider<AdminModel?>((ref) => null,);
 final authControllerProvider = Provider<AuthController>(
         (ref)=>AuthController(authRepository:ref.read(authRepositoryProvider),
       ref: ref,
@@ -25,12 +24,10 @@ class AuthController{
   Stream<User?> get authStateChange => _authRepository.authStateChange;
 
   void signInWithGoogle(BuildContext context) async {
-    await  _authRepository.signInWithGoogle();
-    showSnackBar(context, "Login Successfully...");
-    // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => HomeScreen(),), (route) => false,);
+    await  _authRepository.signInWithGoogle(context);
   }
 
-  Stream<UserModel> getUserData(String uid){
+  Stream<AdminModel> getUserData(String uid){
     return _authRepository.getUserData(uid);
   }
 

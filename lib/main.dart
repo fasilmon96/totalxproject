@@ -1,8 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:totalxproject/features/add_user/screen/add_user_screen.dart';
+import 'package:totalxproject/features/user_management/screen/add_user_screen.dart';
 
 import 'features/auth/screen/login_screen.dart';
 import 'firebase_options.dart';
@@ -23,9 +22,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title:"TOTAL-X PROJECTS",
-      home:LoginScreen()
+    return GestureDetector(
+        onTap:() {
+         FocusManager.instance.primaryFocus?.unfocus();
+         },
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title:"TOTAL-X PROJECTS",
+        home:AddUserScreen()
+      ),
     );
 }}

@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../../../core/constants/color_constants.dart';
 import '../../../core/constants/image_constants.dart';
 import '../../../core/constants/text_constants.dart';
