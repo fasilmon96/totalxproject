@@ -149,6 +149,8 @@ class _AddUserScreenState extends ConsumerState<AddUserScreen> {
                         cursorColor: AppColors.black,
                         textInputAction: TextInputAction.next,
                         keyboardType: TextInputType.number,
+                        maxLength: 3,
+                        enableSuggestions: false,
                         validator: (value) {
                           return Validation.ageValidation(value!);
                         },
@@ -167,6 +169,7 @@ class _AddUserScreenState extends ConsumerState<AddUserScreen> {
                               borderRadius: BorderRadius.circular(10)
                           ),
                           hintText: "Enter the age",
+                          counterText: ""
                         ),
                       ),
                       SizedBox(height: 20,),
@@ -196,6 +199,7 @@ class _AddUserScreenState extends ConsumerState<AddUserScreen> {
                               borderRadius: BorderRadius.circular(10)
                           ),
                           hintText: "Enter the number",
+                          counterText: ""
                         ),
                       ),
                     ],
