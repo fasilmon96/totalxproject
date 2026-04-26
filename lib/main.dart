@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title:"TOTAL-X PROJECTS",
-        home:AddUserScreen()
+        home:HomeScreen()
       ),
     );
 }}

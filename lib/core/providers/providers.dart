@@ -13,6 +13,9 @@ final storageProvider = Provider((ref) => FirebaseStorage.instance);
 final googleSignInProvider = Provider((ref) => GoogleSignIn(),);
 final cloudinaryProvider = Provider((ref) => CloudinaryProvider(),);
 final imageProvider = StateProvider<File?>((ref) =>null,);
+final filterProvider = StateProvider<String>((ref) => "all",);
+final draftFilterProvider = StateProvider<String>((ref) => 'all');
+final searchQueryProvider = StateProvider<String>((ref) => "",);
 
 
 
