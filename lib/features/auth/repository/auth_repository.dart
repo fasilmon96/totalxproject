@@ -12,8 +12,8 @@ import '../../../model/admin_model.dart';
 
 final authRepositoryProvider = Provider(
       (ref) => AuthRepository(
-      firestore: ref.read(fireStoreProvider),
-      auth: ref.read(authProvider),
+      firestore: ref.watch(fireStoreProvider),
+      auth: ref.watch(authProvider),
       googleSignIn: ref.read(
         googleSignInProvider,
       )),

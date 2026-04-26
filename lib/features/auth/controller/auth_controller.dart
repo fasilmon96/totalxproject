@@ -5,7 +5,7 @@ import '../../../model/admin_model.dart';
 import '../repository/auth_repository.dart';
 final userProvider = StateProvider<AdminModel?>((ref) => null,);
 final authControllerProvider = Provider<AuthController>(
-        (ref)=>AuthController(authRepository:ref.read(authRepositoryProvider),
+        (ref)=>AuthController(authRepository:ref.watch(authRepositoryProvider),
       ref: ref,
     )
 );
