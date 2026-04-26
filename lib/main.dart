@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:totalxproject/features/home/screen/home_screen.dart';
+import 'package:totalxproject/features/add_user/screen/add_user_screen.dart';
 
 import 'features/auth/screen/login_screen.dart';
 import 'firebase_options.dart';

@@ -11,5 +11,6 @@ class AppColors{
   static const accentBlue =  Color(0xff2873F0);
   static const cancelBtnGrey =  Color(0xffcccccc);
   static const filterBtn =  Color(0xff100E09);
+  static const homeBg =  Color(0xffEBEBEB);
 
 }
