@@ -21,7 +21,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     ref.read(authControllerProvider).signInWithGoogle(context);
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
