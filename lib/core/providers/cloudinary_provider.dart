@@ -4,8 +4,8 @@ import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:totalxproject/core/common/error_text.dart';
 
 class CloudinaryProvider{
-   static const cloudName = "dmb9p4e67";
-   static const uploadPreset = "my_preset_007";
+   static const cloudName = "xxxxxx";
+   static const uploadPreset = "xxxxxxx";
 
    final CloudinaryPublic cloudinary = CloudinaryPublic(cloudName, uploadPreset);
 
