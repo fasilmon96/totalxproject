@@ -6,7 +6,6 @@ import 'package:totalxproject/core/constants/firebase_constants.dart';
 import 'package:totalxproject/core/providers/cloudinary_provider.dart';
 import 'package:totalxproject/core/providers/providers.dart';
 import 'package:totalxproject/core/providers/utils..dart';
-import 'package:totalxproject/features/home/screen/home_screen.dart';
 import 'package:totalxproject/model/user_model.dart';
 
 final addUserRepositoryProvider = Provider((ref) => AddUserRepository(
@@ -46,17 +45,14 @@ class AddUserRepository{
        }
 
           final updatedUser = userModel.copyWith(image: imageUrl);
-
           await _user.doc(updatedUser.uid).set(updatedUser.toJson());
-
-          if (context.mounted) {
-            showSnackBar(context, "User Added Successfully...");
-            await Future.delayed(const Duration(seconds: 2));
-            if(context.mounted){
-               Navigator.pushAndRemoveUntil(
-                context, MaterialPageRoute(builder: (context) => const HomeScreen(),), (route) => false,);
-            }
-          }
+       if (context.mounted) {
+         showSnackBar(context, "User Added Successfully!");
+         await Future.delayed(const Duration(milliseconds: 1500));
+         if (context.mounted) {
+           Navigator.pop(context);
+         }
+       }
      } catch(e){
        if(context.mounted){
          showSnackBar(context, e.toString());
