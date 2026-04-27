@@ -9,6 +9,8 @@ import 'package:totalxproject/core/providers/providers.dart';
 import 'package:totalxproject/features/home/controller/home_controller.dart';
 import 'package:totalxproject/features/user_management/screen/add_user_screen.dart';
 
+import '../../auth/controller/auth_controller.dart';
+
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -18,6 +20,11 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
+
+
+  void logout(){
+    ref.read(authControllerProvider).logout(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,8 +91,30 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 ],
               ),
               SizedBox(height: 20,),
-              Text("User Lists",
-                style:AppTextStyles.title,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("User Lists",
+                    style:AppTextStyles.title,),
+
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.accentBlue,
+                      elevation: 1,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)
+                      )
+                    ),
+                      onPressed: () {
+                       logout();
+                      },
+                      child: Icon(
+                        Icons.logout,
+                        color: AppColors.filterBtn,
+                      )
+                  )
+                ],
+              ),
               SizedBox(height: 20,),
               userAsync.when(
                   data: (allUsers) {

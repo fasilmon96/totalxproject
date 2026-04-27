@@ -10,8 +10,11 @@ import 'package:totalxproject/core/providers/cloudinary_provider.dart';
 final authProvider = Provider((ref) => FirebaseAuth.instance);
 final fireStoreProvider = Provider((ref) => FirebaseFirestore.instance);
 final storageProvider = Provider((ref) => FirebaseStorage.instance);
-final googleSignInProvider = Provider((ref) => GoogleSignIn(),);
-final cloudinaryProvider = Provider((ref) => CloudinaryProvider(),);
+final googleSignInProvider = Provider<GoogleSignIn>((ref) {
+  return GoogleSignIn(
+    forceCodeForRefreshToken: true,
+  );
+});final cloudinaryProvider = Provider((ref) => CloudinaryProvider(),);
 final imageProvider = StateProvider<File?>((ref) =>null,);
 final filterProvider = StateProvider<String>((ref) => "all",);
 final draftFilterProvider = StateProvider<String>((ref) => 'all');

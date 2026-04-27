@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:totalxproject/core/common/error_text.dart';
@@ -32,9 +32,9 @@ class AuthRepository{
   Stream<User?> get authStateChange => _auth.authStateChanges();
   Future<AdminModel> signInWithGoogle(BuildContext context) async {
     try {
+
       UserCredential userCredential;
         final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-
 
       if (googleUser == null) {
         throw 'Google Sign-In cancelled';
@@ -45,34 +45,51 @@ class AuthRepository{
           accessToken: googleAuth.accessToken,
           idToken: googleAuth.idToken,
         );
+      if (context.mounted) {
+        showSnackBar(context, "Login Successfully...");
+        await Future.delayed(const Duration(seconds: 2));
+      }
       userCredential = await _auth.signInWithCredential(credential);
-      AdminModel userModel;
+
+      AdminModel? adminModel;
       if (userCredential.additionalUserInfo!.isNewUser) {
-        userModel = AdminModel(
+        adminModel = AdminModel(
             uid: userCredential.user!.uid,
             name: userCredential.user!.displayName ?? "No Name",
             profilePic: userCredential.user!.photoURL ?? AppImages.avatarImage,
         );
-        await _admin.doc(userCredential.user!.uid).set(userModel.toJson());
-        if (context.mounted) {
-          showSnackBar(context, "Login Successfully...");
-        }
+        await _admin.doc(userCredential.user!.uid).set(adminModel.toJson());
+
       } else {
-        userModel = await getUserData(userCredential.user!.uid).first;
+        adminModel = await getUserData(userCredential.user!.uid).first;
       }
-      return userModel;
+      if (adminModel != null) {
+          if (context.mounted) {
+            return adminModel;
+          }
+      }
+      throw 'Context unmounted during login';
     } catch(e){
       throw ErrorText(error: e.toString());
     }
   }
-
-
-  Stream<AdminModel> getUserData(String uid) {
+  Stream<AdminModel?> getUserData(String uid) {
     return _admin.doc(uid).snapshots().map(
-          (event) => AdminModel.fromJson(event.data() as Map<String, dynamic>),
+          (event) {
+        if (!event.exists || event.data() == null) {
+          return null;
+        }
+        return AdminModel.fromJson(event.data() as Map<String, dynamic>);
+      },
     );
   }
-
-
+   void logout (BuildContext context) async {
+     showSnackBar(context, "Logout Successfully...");
+       await Future.delayed(const Duration(seconds: 2));
+     if (context.mounted) {
+       await _googleSignIn.signOut();
+       await _auth.signOut();
+     }
+   }
 
 }
