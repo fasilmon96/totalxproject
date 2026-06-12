@@ -86,10 +86,10 @@ class AuthRepository{
    void logout (BuildContext context) async {
      showSnackBar(context, "Logout Successfully...");
        await Future.delayed(const Duration(seconds: 2));
-     if (context.mounted) {
+  
        await _googleSignIn.signOut();
        await _auth.signOut();
-     }
+
    }
 
 }
