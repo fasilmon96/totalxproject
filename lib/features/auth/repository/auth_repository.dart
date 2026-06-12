@@ -30,7 +30,7 @@ class AuthRepository{
 
   CollectionReference get _admin => _firestore.collection(FirebaseConstants.adminCollection);
   Stream<User?> get authStateChange => _auth.authStateChanges();
-  Future<AdminModel> signInWithGoogle(BuildContext context) async {
+  Future<AdminModel?> signInWithGoogle(BuildContext context) async {
     try {
 
       UserCredential userCredential;
@@ -64,11 +64,9 @@ class AuthRepository{
         adminModel = await getUserData(userCredential.user!.uid).first;
       }
       if (adminModel != null) {
-          if (context.mounted) {
             return adminModel;
-          }
       }
-      throw 'Context unmounted during login';
+      return null;
     } catch(e){
       throw ErrorText(error: e.toString());
     }
